@@ -1,0 +1,87 @@
+
+WebDriver driver = new ChromeDriver();
+
+driver.get("https://trello.com/en/login");
+
+driver.manage().window().maximize();
+
+WebElement emailId = driver.findElement(By.id("user"));
+
+emailId.sendkeys("vimalabde@gmail.com"+Keys.ENTER);
+
+WebElement password=driver.findElement(By.id("password"));
+
+password.sendKeys("Hello1234@"+Keys.ENTER);
+
+WebElement createBoard=driver.findElement(By.xpath("//*[contains(text(),'Create new board')]"));
+
+createBoard.click();
+
+WebElement boardTitle = driver.findElement(By.xpath("//*[@data-test-id='create-board-title-input']"));
+
+boardTitle.sendKeys("Test" + Keys.ENTER);
+
+WebElement list1Title = driver.findElement(By.xpath("//*[@name='name']"));
+
+list1Title.sendKeys('List A' + Keys.ENTER);
+
+WebElement list2Title = driver.findElement(By.xpath("//*[@name='name']"));
+
+list1Title.sendKeys('List B' + Keys.ENTER);
+
+WebElement cancelAddList =  driver.findElement(By.xpath("//*[@class='icon-lg icon-close dark-hover js-cancel-edit']"));
+
+cancelAddList.click();
+
+WebElement addCard = driver.findElement(By.xpath("//*[text() = 'List A']//following::span[text() = 'Add a card'][1]"));
+
+addCard.click();
+
+WebElement cardTitle = driver.findElement(By.xpath("//textarea[text()='List A']//following::textarea[1]"));
+
+cardTitle.sendKeys("Card 1" + Keys.ENTER);
+
+WebElement cancelAddCard = driver.findElement(By.xpath("//*[@class='icon-lg icon-close dark-hover js-cancel']"));
+
+cancelAddCard.click();
+
+Actions dragAction = new Actions(driver);
+
+WebElement card1 = driver.findElement(By.xpath("//span[text() = 'Card 1']"));
+
+WebElement listB = driver.findElement(By.xpath("//*[text()='List B']//ancestor::div[@class='js-list list-wrapper']"));
+
+dragAction.dragAndDrop(card1, listB).build().perform();
+
+WebElement movedCard1 = driver.findElement(By.xpath("//span[text() = 'Card 1']"));
+
+Point point = movedCard1.getLocation();
+
+int pointX = point.getX();
+
+int pointY = point.getY();
+
+System.out.println("X coordinates is :" + pointX + " Y coordinates is : " + pointY);
+
+WebElement userIcon = driver.findElement(By.xpath("//*[@data-test-id='header-member-menu-button']//div//span"));
+
+userIcon.click();
+
+WebElement logoutOption = driver.findElement(By.xpath("//*[@data-test-id='header-member-menu-logout']"));
+
+logoutOption.click();
+
+WebElement logoutButton = driver.findElement(By.xpath("//*[@id='logout-submit']"));
+
+logoutButton.click();
+
+driver.quit();
+
+
+
+
+
+
+
+
+
